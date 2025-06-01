@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Sentiment Analyzer</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #f0f8f5;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 30px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-weight: 700;
+            color: #2e8b57;
+        }
+        .img-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .custom-btn {
+            background-color: #7ed957;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .custom-btn:hover {
+            background-color: #68c443;
+        }
+        .result-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .result-card {
+            margin-top: 30px;
+            padding: 25px;
+            width:100%;
+            background-color: #eafaf1;
+            border-radius: 10px;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        .result-card h4 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #2f855a;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #9FE2BF;
+            border-color: #8fd2af;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #82cba7;
+            border-color: #74b99c;
+        }
+        .chart-container {
+            display: inline-block;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>YouTube Sentiment Analyzer</h1>
+        <p class="lead text-muted">Analyze YouTube comments using smart sentiment detection</p>
+    </div>
+
+    <div class="img-container text-center mb-4">
+        <img src="https://media.sproutsocial.com/uploads/2024/10/Sentiment-analysis-Final.svg" alt="Sentiment Analysis Image" class="img-fluid">
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="video_url" class="form-label">Enter YouTube Video URL</label>
+            <input type="text" class="form-control" id="video_url" name="video_url" placeholder="Paste YouTube link here">
+        </div>
+        <button type="submit" class="btn custom-btn">Analyze</button>
+    </form>
+
+    {% if sentiment_data %}
+    <div class="result-wrapper">
+        <div class="result-card">
+            <h4>Sentiment Analysis Results</h4>
+            <p><strong>Positive Sentiment:</strong> {{ sentiment_data.positive }}%</p>
+            <p><strong>Neutral Sentiment:</strong> {{ sentiment_data.neutral }}%</p>
+            <p><strong>Negative Sentiment:</strong> {{ sentiment_data.negative }}%</p>
+            <p><strong>Overall Sentiment:</strong> {{ sentiment_data.overall }}</p>
+
+            <!-- Pie Chart -->
+            <div class="chart-container">
+                <canvas id="sentimentChart" width="300" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{
+                    data: [{{ sentiment_data.positive }}, {{ sentiment_data.neutral }}, {{ sentiment_data.negative }}],
+                    backgroundColor: ['#9FE2BF', '#f9e79f', '#f1948a'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% else %}
+    <p class="text-center text-muted">No sentiment data available.</p>
+    {% endif %}
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Sentiment Analyzer</title>
+</head>
+<body>
+    <h2>Enter YouTube Video URL</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="video_url" placeholder="Paste YouTube URL here" size="60">
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if sentiment_data %}
+        <h3>Results:</h3>
+        <p><strong>Positive:</strong> {{ sentiment_data.positive }}%</p>
+        <p><strong>Neutral:</strong> {{ sentiment_data.neutral }}%</p>
+        <p><strong>Negative:</strong> {{ sentiment_data.negative }}%</p>
+        <h4>Overall: {{ sentiment_data.overall }}</h4>
+    {% endif %}
+</body>
+</html>
