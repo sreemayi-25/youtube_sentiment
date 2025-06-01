@@ -393,6 +393,7 @@ uri-template==1.3.0
 uritemplate==4.1.1
 urllib3 @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_8erehjlzck/croot/urllib3_1707349248082/work
 validators @ file:///tmp/build/80754af9/validators_1612286467315/work
+vercel==0.2.1
 w3lib @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_e4l0s0u31h/croot/w3lib_1708639939851/work
 watchdog @ file:///Users/cbousseau/work/recipes/ci_py311/watchdog_1677963700938/work
 wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work

@@ -12,8 +12,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "youtube_sentiment.settings")
+# wsgi.py
+from django.core.wsgi import get_wsgi_application
 
-application = get_wsgi_application()
-
-from youtube_sentiment.wsgi import application
-app = application
+app = get_wsgi_application()
