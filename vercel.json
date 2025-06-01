@@ -1,15 +1,14 @@
 {
     "builds": [
       {
-        "src": "wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "50mb" }
+        "src": "youtube_sentiment/wsgi.py",
+        "use": "@vercel/python"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "wsgi.py"
+        "dest": "youtube_sentiment/wsgi.py"
       }
     ]
   }
