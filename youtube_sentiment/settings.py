@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,9 +26,8 @@ YOUTUBE_API_KEY = 'AIzaSyCCCKKrqyHNbuxo28tUoQTZ2Wj0gv2W0cg'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+DEBUG = False
+ALLOWED_HOSTS = ['sreemayi25.pythonanywhere.com']
 
 
 # Application definition
@@ -115,11 +114,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
